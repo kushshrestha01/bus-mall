@@ -1,6 +1,7 @@
 'use strict';
 
 var allImages =[];
+var totalClicks = 0;
 var image1 = document.getElementById('image1');
 var image2 = document.getElementById('image2');
 var image3 = document.getElementById('image3');
@@ -9,10 +10,9 @@ function RandomImage(name) {
   this.filepath = `image/${name}`;
   this.name = name;
   this.rendered = 0;
-  this.views = 0;
+  this.clicked = 0;
   allImages.push(this);
 }
-
 new RandomImage('bag.jpg');
 new RandomImage('banana.jpg');
 new RandomImage('bathroom.jpg');
@@ -36,7 +36,7 @@ new RandomImage('wine-glass.jpg');
 var randomArray = [];
 
 function randomNumber(){
-  console.log('randomArray length ' + randomArray.length);
+  //console.log('randomArray length ' + randomArray.length);
   // https://stackoverflow.com/questions/2380019/generate-unique-random-numbers-between-1-and-100
   var checkRandomArray = [];
   checkRandomArray = randomArray;
@@ -52,19 +52,20 @@ function randomNumber(){
 function showRandomImage(){
   randomNumber();
   image1.src = allImages[randomArray[0]].filepath;
-  console.log('image ' + image1.src);
   image1.alt = allImages[randomArray[0]].name;
-  console.log('image name ' + image1.alt);
   image1.title = allImages[randomArray[0]].name;
-  console.log('image title ' + image1.title);
+  allImages[randomArray[0]].rendered++;
+  console.log('image rendered count ' + allImages[0].rendered);
 
   image2.src = allImages[randomArray[1]].filepath;
   image2.alt = allImages[randomArray[1]].name;
   image2.title = allImages[randomArray[1]].name;
+  allImages[randomArray[1]].rendered++;
 
   image3.src = allImages[randomArray[2]].filepath;
   image3.alt = allImages[randomArray[2]].name;
   image3.title = allImages[randomArray[2]].name;
+  allImages[randomArray[2]].rendered++;
 }
 
 function renderImage(){
@@ -74,24 +75,46 @@ function renderImage(){
   randomNumber();
 
   newImage1.src = allImages[randomArray[0]].filepath;
-  console.log('image ' + image1.src);
   newImage1.alt = allImages[randomArray[0]].name;
-  console.log('image name ' + image1.alt);
   newImage1.title = allImages[randomArray[0]].name;
-  console.log('image title ' + image1.title);
+  allImages[randomArray[0]].rendered++;
 
   newImage2.src = allImages[randomArray[1]].filepath;
   newImage2.alt = allImages[randomArray[1]].name;
   newImage2.title = allImages[randomArray[1]].name;
+  allImages[randomArray[1]].rendered++;
 
   newImage3.src = allImages[randomArray[2]].filepath;
   newImage3.alt = allImages[randomArray[2]].name;
   newImage3.title = allImages[randomArray[2]].name;
+  allImages[randomArray[2]].rendered++;
 }
 
 function handleImageClick(event) {
-  console.log('here is even.target ' + event.target);
+  //console.log('here is even.target ' + event.target.alt);
+  totalClicks++;
+  for(var i =0; i<allImages.length; i++){
+    if(event.target.alt === allImages[i].name){
+      allImages[i].clicked++;
+      console.log(allImages[i].name + ' was clicked ' + allImages[i].clicked);
+      console.log(event.target.alt);
+    }
+  }
+
   renderImage();
+  console.log('clicks countup ' + totalClicks);
+  if(totalClicks===25){
+    image1.removeEventListener('click', handleImageClick);
+    image2.removeEventListener('click', handleImageClick);
+    image3.removeEventListener('click', handleImageClick);
+    var votesInfo = document.getElementById('votes');
+    for(var j = 0; j <allImages.length; j++){
+      console.log(allImages[j].clicked + ' votes for the ' + allImages[j].name);
+      var liEL = document.createElement('li');
+      liEL.textContent = allImages[j].clicked + ' votes for the ' + allImages[j].name;
+      votesInfo.appendChild(liEL);
+    }
+  }
 }
 
 showRandomImage();
@@ -99,3 +122,4 @@ showRandomImage();
 image1.addEventListener('click', handleImageClick);
 image2.addEventListener('click', handleImageClick);
 image3.addEventListener('click', handleImageClick);
+
