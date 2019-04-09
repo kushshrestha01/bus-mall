@@ -33,22 +33,24 @@ new RandomImage('usb.gif');
 new RandomImage('water-can.jpg');
 new RandomImage('wine-glass.jpg');
 
-function showRandomImage(){
-  var randomArray = [];
+var randomArray = [];
+
+function randomNumber(){
   console.log('randomArray length ' + randomArray.length);
   // https://stackoverflow.com/questions/2380019/generate-unique-random-numbers-between-1-and-100
+  var checkRandomArray = [];
+  checkRandomArray = randomArray;
+  randomArray = [];
   while(randomArray.length < 3){
     var r = Math.floor(Math.random() * 18) + 1;
-    if(randomArray.indexOf(r) === -1) randomArray.push(r);
+    if(randomArray.indexOf(r) === -1 && checkRandomArray.indexOf(r) === -1){
+      randomArray.push(r);
+    }
   }
-  document.write(randomArray);
+}
 
-  console.log('random array ' + randomArray[0]);
-  console.log('random array ' + randomArray[1]);
-  console.log('random array ' + randomArray[2]);
-
-
-
+function showRandomImage(){
+  randomNumber();
   image1.src = allImages[randomArray[0]].filepath;
   console.log('image ' + image1.src);
   image1.alt = allImages[randomArray[0]].name;
@@ -65,9 +67,31 @@ function showRandomImage(){
   image3.title = allImages[randomArray[2]].name;
 }
 
+function renderImage(){
+  var newImage1 = document.getElementById('image1');
+  var newImage2 = document.getElementById('image2');
+  var newImage3 = document.getElementById('image3');
+  randomNumber();
+
+  newImage1.src = allImages[randomArray[0]].filepath;
+  console.log('image ' + image1.src);
+  newImage1.alt = allImages[randomArray[0]].name;
+  console.log('image name ' + image1.alt);
+  newImage1.title = allImages[randomArray[0]].name;
+  console.log('image title ' + image1.title);
+
+  newImage2.src = allImages[randomArray[1]].filepath;
+  newImage2.alt = allImages[randomArray[1]].name;
+  newImage2.title = allImages[randomArray[1]].name;
+
+  newImage3.src = allImages[randomArray[2]].filepath;
+  newImage3.alt = allImages[randomArray[2]].name;
+  newImage3.title = allImages[randomArray[2]].name;
+}
+
 function handleImageClick(event) {
   console.log('here is even.target ' + event.target);
-  showRandomImage();
+  renderImage();
 }
 
 showRandomImage();
@@ -75,42 +99,3 @@ showRandomImage();
 image1.addEventListener('click', handleImageClick);
 image2.addEventListener('click', handleImageClick);
 image3.addEventListener('click', handleImageClick);
-
-
-
-// var previous;
-
-// function showRandomImage(){
-//   // var ramdom = Math.floor(Math.random() * allImages.length);
-//   // console.log('currently showing before generating new ramdom', image1.alt);
-//   // while (image1.alt === allImages[ramdom].name) {
-//   //   ramdom = Math.floor(Math.random() * allImages.length);
-//   //   console.log('duplicate found');
-//   // }
-//   // previous = ramdom; 
-//   var randomArray = [];
-//   //console.log('randomArray length ' + randomArray.length);
-//   //https://stackoverflow.com/questions/2380019/generate-unique-random-numbers-between-1-and-100
-//   while(randomArray.length < 1){
-//     var r = Math.floor(Math.random() * 18) + 1;
-//     if(randomArray.indexOf(r) === -1) randomArray.push(r);
-//   }
-//   document.write(randomArray);
-//   console.log('random number ' + randomArray[0]);
-
-//   allImages[randomArray[0]].views += 1;
-//   image1.src = allImages[randomArray[0]].filepath;
-//   image1.alt = allImages[randomArray[0]].name;
-//   image1.title = allImages[randomArray[0]].name;
-// }
-
-// function handleImageClick(event) {
-//   //console.log(event.target);
-//   showRandomImage();
-// }
-
-// showRandomImage();
-
-// image1.addEventListener('click', handleImageClick);
-
-
