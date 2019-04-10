@@ -6,4 +6,9 @@ Assignment Started
 
 
 04/09/19
+
 Monday assignment completed
+
+Tuesday assignment started in new branch 'chartjs'
+
+Tuesday assignment completed.
