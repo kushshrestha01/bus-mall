@@ -2,6 +2,9 @@
 
 var allImages =[];
 var totalClicks = 0;
+var labelArray = [];
+var dataArray = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+forFirstData();
 var image1 = document.getElementById('image1');
 var image2 = document.getElementById('image2');
 var image3 = document.getElementById('image3');
@@ -35,6 +38,7 @@ new RandomImage('wine-glass.jpg');
 
 var randomArray = [];
 
+//generate random unique array 
 function randomNumber(){
   //console.log('randomArray length ' + randomArray.length);
   // https://stackoverflow.com/questions/2380019/generate-unique-random-numbers-between-1-and-100
@@ -49,13 +53,14 @@ function randomNumber(){
   }
 }
 
+//first function on pageload
 function showRandomImage(){
   randomNumber();
   image1.src = allImages[randomArray[0]].filepath;
   image1.alt = allImages[randomArray[0]].name;
   image1.title = allImages[randomArray[0]].name;
   allImages[randomArray[0]].rendered++;
-  console.log('image rendered count ' + allImages[0].rendered);
+  //console.log('image rendered count ' + allImages[0].rendered);
 
   image2.src = allImages[randomArray[1]].filepath;
   image2.alt = allImages[randomArray[1]].name;
@@ -68,6 +73,7 @@ function showRandomImage(){
   allImages[randomArray[2]].rendered++;
 }
 
+//new image after each click
 function renderImage(){
   var newImage1 = document.getElementById('image1');
   var newImage2 = document.getElementById('image2');
@@ -90,26 +96,26 @@ function renderImage(){
   allImages[randomArray[2]].rendered++;
 }
 
+//function to count total overall clicks, total clicks for each picture, display votes of each image and drawchart
 function handleImageClick(event) {
   //console.log('here is even.target ' + event.target.alt);
   totalClicks++;
   for(var i =0; i<allImages.length; i++){
     if(event.target.alt === allImages[i].name){
       allImages[i].clicked++;
-      console.log(allImages[i].name + ' was clicked ' + allImages[i].clicked);
-      console.log(event.target.alt);
+      dataArray[i]++;
     }
+    localStorage.setItem('dataArray1', JSON.stringify(dataArray));
   }
-
   renderImage();
-  console.log('clicks countup ' + totalClicks);
+  //console.log('clicks countup ' + totalClicks);
   if(totalClicks===25){
     image1.removeEventListener('click', handleImageClick);
     image2.removeEventListener('click', handleImageClick);
     image3.removeEventListener('click', handleImageClick);
     var votesInfo = document.getElementById('votes');
     for(var j = 0; j <allImages.length; j++){
-      console.log(allImages[j].clicked + ' votes for the ' + allImages[j].name);
+      //console.log(allImages[j].clicked + ' votes for the ' + allImages[j].name);
       var liEL = document.createElement('li');
       liEL.textContent = allImages[j].clicked + ' votes for the ' + allImages[j].name;
       votesInfo.appendChild(liEL);
@@ -118,18 +124,18 @@ function handleImageClick(event) {
   }
 }
 
+
 showRandomImage();
 
 image1.addEventListener('click', handleImageClick);
 image2.addEventListener('click', handleImageClick);
 image3.addEventListener('click', handleImageClick);
 
+//Drawing Chart
 function drawChart(){
-  var labelArray = [];
-  var dataArray = [];
   for(var i =0; i<allImages.length; i++){
     labelArray.push(allImages[i].name);
-    dataArray.push(allImages[i].clicked);
+    //dataArray.push(allImages[i].clicked);
   }
 
   var ctx = document.getElementById('myChart').getContext('2d');
@@ -197,4 +203,23 @@ function drawChart(){
     }
   });
 }
+
+function forFirstData(){
+  if(!localStorage.getItem('dataArray1')) {
+    localStorage.setItem('dataArray1', JSON.stringify(dataArray));
+    console.log('runs this');
+  }
+  else {
+    dataArray = JSON.parse(localStorage.getItem('dataArray1'));
+  }
+}
+
+// function clickCount(){
+//   if(totalclicks/25 === 1){
+
+//   }
+// }
+
+console.log('click count' + totalClicks);
+
 
