@@ -1,7 +1,19 @@
 body {
-  background-color: rgba(74, 100, 100, 0.89)
+  background-color: rgba(160, 197, 197, 0.89);
+  width: 960px;
+  margin: 0 auto;
 }
 
 #heading-list {
   display: inline-block;
+}
+
+nav {
+  text-align: center;
+  font-size: 40px;
+}
+
+section {
+  width: 960px;
+  margin: 0 auto;
 }

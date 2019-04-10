@@ -114,6 +114,7 @@ function handleImageClick(event) {
       liEL.textContent = allImages[j].clicked + ' votes for the ' + allImages[j].name;
       votesInfo.appendChild(liEL);
     }
+    drawChart();
   }
 }
 
@@ -122,4 +123,78 @@ showRandomImage();
 image1.addEventListener('click', handleImageClick);
 image2.addEventListener('click', handleImageClick);
 image3.addEventListener('click', handleImageClick);
+
+function drawChart(){
+  var labelArray = [];
+  var dataArray = [];
+  for(var i =0; i<allImages.length; i++){
+    labelArray.push(allImages[i].name);
+    dataArray.push(allImages[i].clicked);
+  }
+
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labelArray,
+      datasets: [{
+        label: '# of Votes',
+        data: dataArray,
+        backgroundColor: [
+          'red',
+          'blue',
+          'yellow',
+          'black',
+          'pink',
+          'rgb(64, 255, 0)',
+          'red',
+          'blue',
+          'yellow',
+          'black',
+          'pink',
+          'rgb(64, 255, 0)',
+          'red',
+          'blue',
+          'yellow',
+          'black',
+          'pink',
+          'rgb(64, 255, 0)',
+          'rgb(255, 191, 0)',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            stepSize: 2,
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+}
 
