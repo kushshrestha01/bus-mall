@@ -12,3 +12,7 @@ Monday assignment completed
 Tuesday assignment started in new branch 'chartjs'
 
 Tuesday assignment completed.
+
+04/10/19
+Wednesday Assignment started in new branch 'local-storage'
+Wednesday assignment completed.
