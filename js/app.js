@@ -38,7 +38,7 @@ new RandomImage('wine-glass.jpg');
 
 var randomArray = [];
 
-//generate random unique array 
+//generate random unique array
 function randomNumber(){
   //console.log('randomArray length ' + randomArray.length);
   // https://stackoverflow.com/questions/2380019/generate-unique-random-numbers-between-1-and-100
@@ -113,13 +113,13 @@ function handleImageClick(event) {
     image1.removeEventListener('click', handleImageClick);
     image2.removeEventListener('click', handleImageClick);
     image3.removeEventListener('click', handleImageClick);
-    var votesInfo = document.getElementById('votes');
-    for(var j = 0; j <allImages.length; j++){
-      //console.log(allImages[j].clicked + ' votes for the ' + allImages[j].name);
-      var liEL = document.createElement('li');
-      liEL.textContent = allImages[j].clicked + ' votes for the ' + allImages[j].name;
-      votesInfo.appendChild(liEL);
-    }
+    // var votesInfo = document.getElementById('votes');
+    // for(var j = 0; j <allImages.length; j++){
+    //   //console.log(allImages[j].clicked + ' votes for the ' + allImages[j].name);
+    //   var liEL = document.createElement('li');
+    //   liEL.textContent = allImages[j].clicked + ' votes for the ' + allImages[j].name;
+    //   votesInfo.appendChild(liEL);
+    // }
     drawChart();
   }
 }
@@ -213,13 +213,3 @@ function forFirstData(){
     dataArray = JSON.parse(localStorage.getItem('dataArray1'));
   }
 }
-
-// function clickCount(){
-//   if(totalclicks/25 === 1){
-
-//   }
-// }
-
-console.log('click count' + totalClicks);
-
-
